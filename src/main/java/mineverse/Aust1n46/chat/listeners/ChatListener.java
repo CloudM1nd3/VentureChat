@@ -62,7 +62,7 @@ public class ChatListener implements Listener {
 				}
 			}
 		}
-		chat = " " + chat;
+		chat = " " + chat.stripLeading();
 
 		if(mcp.isEditing()) {
 			mcp.getPlayer().sendMessage(Format.FormatStringAll(chat));
@@ -194,7 +194,6 @@ public class ChatListener implements Listener {
 		Location diff;
 		Boolean filterthis = true;
 		Double chDistance = (double) 0;
-		String curColor = "";
 		if(eventChannel.hasSpeakPermission() && !mcp.getPlayer().hasPermission(eventChannel.getSpeakPermission())) {
 			mcp.getPlayer().sendMessage(LocalizedMessage.CHANNEL_NO_SPEAK_PERMISSIONS.toString());
 			return;
@@ -382,14 +381,9 @@ public class ChatListener implements Listener {
 		if(mcp.getPlayer().hasPermission("venturechat.format")) {
 			chat = Format.FormatString(chat);
 		}
-		if(curColor.equalsIgnoreCase("None")) {
-			// Format the placeholders and their color codes to determine the last color code to use for the chat message color
-			chat = Format.getLastCode(Format.FormatStringAll(PlaceholderAPI.setBracketPlaceholders(mcp.getPlayer(), format))) + chat;
-		}
-		else {
-			chat = curColor + chat;
-		}
-		
+		// Format the placeholders and their color codes to determine the last color code to use for the chat message color
+		chat = Format.getLastCode(Format.FormatStringAll(PlaceholderAPI.setBracketPlaceholders(mcp.getPlayer(), format))) + chat;
+
 		String globalJSON = Format.convertToJson(mcp, format, chat);
 		format = Format.FormatStringAll(PlaceholderAPI.setBracketPlaceholders(mcp.getPlayer(), Format.FormatStringAll(format)));
 		String message = Format.stripColor(format + chat); // UTF-8 encoding issues.
