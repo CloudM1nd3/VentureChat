@@ -35,7 +35,7 @@ public class ChatListener implements Listener {
 
 	// this event isn't always asynchronous even though the event's name starts with "Async"
     // blame md_5 for that one
-	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event) {
 		event.setCancelled(true);
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
