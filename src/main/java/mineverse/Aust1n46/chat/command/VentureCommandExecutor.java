@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import mineverse.Aust1n46.chat.command.chat.*;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -14,16 +15,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import mineverse.Aust1n46.chat.MineverseChat;
-import mineverse.Aust1n46.chat.command.chat.Broadcast;
-import mineverse.Aust1n46.chat.command.chat.Chatreload;
-import mineverse.Aust1n46.chat.command.chat.Clearchat;
-import mineverse.Aust1n46.chat.command.chat.Commandspy;
-import mineverse.Aust1n46.chat.command.chat.Filter;
-import mineverse.Aust1n46.chat.command.chat.Force;
-import mineverse.Aust1n46.chat.command.chat.Forceall;
-import mineverse.Aust1n46.chat.command.chat.Me;
-import mineverse.Aust1n46.chat.command.chat.Party;
-import mineverse.Aust1n46.chat.command.chat.RangedSpy;
 import mineverse.Aust1n46.chat.command.message.Ignore;
 import mineverse.Aust1n46.chat.command.message.Message;
 import mineverse.Aust1n46.chat.command.message.MessageToggle;
@@ -63,7 +54,7 @@ public class VentureCommandExecutor {
 		commands.put("forceall", new Forceall());
 		commands.put("me", new Me());
 		commands.put("notifications", new Notifications());
-		commands.put("party", new Party());
+		commands.put("group", new Group());
 		commands.put("rangedspy", new RangedSpy());
 		commands.put("spy", new Spy());
 		commands.put("messagetoggle", new MessageToggle());

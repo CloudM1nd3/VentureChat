@@ -35,7 +35,7 @@ public class ChatListener implements Listener {
 
 	// this event isn't always asynchronous even though the event's name starts with "Async"
     // blame md_5 for that one
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event) {
 		event.setCancelled(true);
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
@@ -151,43 +151,6 @@ public class ChatListener implements Listener {
 			return;
 		}
 
-		if(mcp.isPartyChat()) {
-			if(mcp.hasParty()) {
-				String partyformat = "";
-				for(MineverseChatPlayer p : MineverseChatAPI.getOnlineMineverseChatPlayers()) {
-					if((p.hasParty() && p.getParty().toString().equals(mcp.getParty().toString()) || p.isSpy())) {
-						String filtered = chat;
-						if(mcp.hasFilter()) {
-							filtered = Format.FilterChat(filtered);
-						}
-						if(mcp.getPlayer().hasPermission("venturechat.color.legacy")) {
-							filtered = Format.FormatStringLegacyColor(filtered);
-						}
-						if(mcp.getPlayer().hasPermission("venturechat.color")) {
-							filtered = Format.FormatStringColor(filtered);
-						}
-						if(mcp.getPlayer().hasPermission("venturechat.format")) {
-							filtered = Format.FormatString(filtered);
-						}
-						filtered = " " + filtered;
-						if(plugin.getConfig().getString("partyformat").equalsIgnoreCase("Default")) {
-							partyformat = ChatColor.GREEN + "[" + MineverseChatAPI.getMineverseChatPlayer(mcp.getParty()).getName() + "'s Party] " + mcp.getName() + ":" + filtered;
-						}
-						else {
-							partyformat = Format.FormatStringAll(plugin.getConfig().getString("partyformat").replace("{host}", MineverseChatAPI.getMineverseChatPlayer(mcp.getParty()).getName()).replace("{player}", mcp.getName())) + filtered;
-						}
-						p.getPlayer().sendMessage(partyformat);
-					}
-				}
-				Bukkit.getConsoleSender().sendMessage(partyformat);
-				if(Database.isEnabled()) {
-					Database.writeVentureChat(mcp.getUUID().toString(), mcp.getName(), "Local", "Party_Component", chat.replace("'", "''"), "Chat");
-				}
-				return;
-			}
-			mcp.getPlayer().sendMessage(ChatColor.RED + "You are not in a party.");
-			return;
-		}
 		
 		Location locreceip;
 		Location locsender = mcp.getPlayer().getLocation();

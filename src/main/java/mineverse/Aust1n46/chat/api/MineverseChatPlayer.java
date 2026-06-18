@@ -24,8 +24,6 @@ public class MineverseChatPlayer {
 	private UUID uuid;
 	private String name;
 	private Set<UUID> ignores;
-	private UUID party;
-	private boolean host;
 	private boolean filter;
 	private boolean notifications;
 	private boolean online;
@@ -36,7 +34,6 @@ public class MineverseChatPlayer {
 	private boolean commandSpy;
 	private UUID replyPlayer;
 	private HashMap<ChatChannel, Long> cooldowns;
-	private boolean partyChat;
 	private HashMap<ChatChannel, List<Long>> spam;
 	private boolean modified;
 	private List<ChatMessage> messages;
@@ -46,16 +43,14 @@ public class MineverseChatPlayer {
 	private boolean messageToggle;
 	
 	@Deprecated
-	public MineverseChatPlayer(UUID uuid, String name, ChatChannel currentChannel, Set<UUID> ignores, Set<String> listening, Set<String> blockedCommands, boolean host, UUID party, boolean filter, boolean notifications, String nickname, String jsonFormat, boolean spy, boolean commandSpy, boolean rangedSpy, boolean messageToggle) {
-		this(uuid, name, ignores, host, party, filter, notifications, jsonFormat, spy, commandSpy, rangedSpy, messageToggle);
+	public MineverseChatPlayer(UUID uuid, String name, Set<UUID> ignores, boolean host, UUID party, boolean filter, boolean notifications, String nickname, String jsonFormat, boolean spy, boolean commandSpy, boolean rangedSpy, boolean messageToggle) {
+		this(uuid, name, ignores, filter, notifications, jsonFormat, spy, commandSpy, rangedSpy, messageToggle);
 	}
 	
-	public MineverseChatPlayer(UUID uuid, String name, Set<UUID> ignores, boolean host, UUID party, boolean filter, boolean notifications, String jsonFormat, boolean spy, boolean commandSpy, boolean rangedSpy, boolean messageToggle) {
+	public MineverseChatPlayer(UUID uuid, String name, Set<UUID> ignores, boolean filter, boolean notifications, String jsonFormat, boolean spy, boolean commandSpy, boolean rangedSpy, boolean messageToggle) {
 		this.uuid = uuid;
 		this.name = name;
 		this.ignores = ignores;
-		this.party = party;
-		this.host = host;
 		this.filter = filter;
 		this.notifications = notifications;
 		this.online = false;
@@ -66,7 +61,6 @@ public class MineverseChatPlayer {
 		this.rangedSpy = rangedSpy;
 		this.commandSpy = commandSpy;
 		this.replyPlayer = null;
-		this.partyChat = false;
 		this.modified = false;
 		this.messages = new ArrayList<ChatMessage>();
 		this.jsonFormat = jsonFormat;
@@ -79,8 +73,6 @@ public class MineverseChatPlayer {
 		this.uuid = uuid;
 		this.name = name;
 		this.ignores = new HashSet<UUID>();
-		this.host = false;
-		this.party = null;
 		this.filter = true;
 		this.notifications = true;
 		this.online = false;
@@ -91,7 +83,6 @@ public class MineverseChatPlayer {
 		this.rangedSpy = false;
 		this.commandSpy = false;
 		this.replyPlayer = null;
-		this.partyChat = false;
 		this.modified = false;
 		this.messages = new ArrayList<ChatMessage>();
 		this.jsonFormat = "Default";
@@ -165,26 +156,6 @@ public class MineverseChatPlayer {
 
 	public void removeIgnore(UUID ignore) {
 		this.ignores.remove(ignore);
-	}
-
-	public boolean isHost() {
-		return this.host;
-	}
-
-	public void setHost(boolean host) {
-		this.host = host;
-	}
-
-	public UUID getParty() {
-		return this.party;
-	}
-
-	public void setParty(UUID party) {
-		this.party = party;
-	}
-
-	public boolean hasParty() {
-		return this.party != null;
 	}
 
 	public boolean hasFilter() {
@@ -279,14 +250,6 @@ public class MineverseChatPlayer {
 
 	public boolean hasReplyPlayer() {
 		return this.replyPlayer != null;
-	}
-
-	public boolean isPartyChat() {
-		return this.partyChat;
-	}
-
-	public void setPartyChat(boolean partyChat) {
-		this.partyChat = partyChat;
 	}
 
 	public HashMap<ChatChannel, Long> getCooldowns() {

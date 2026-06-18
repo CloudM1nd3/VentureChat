@@ -2,6 +2,8 @@ package mineverse.Aust1n46.chat.listeners;
 
 import java.util.UUID;
 
+import mineverse.Aust1n46.chat.api.ChatGroup;
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -36,8 +36,8 @@ commands:
     broadcast:
         aliases: [bc,vbroadcast]
         enabled: true
-    party:
-        aliases: [p,chatparty,cp,vparty]
+    group:
+        aliases: [chatgroup,cg,vgroup]
         enabled: true
     clearchat:
         aliases: [cc,vclearchat]

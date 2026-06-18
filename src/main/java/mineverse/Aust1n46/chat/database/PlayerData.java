@@ -64,7 +64,7 @@ public class PlayerData {
                 boolean commandSpy = playerData.getConfigurationSection("players." + uuidString).getBoolean("commandspy", false);
                 boolean rangedSpy = playerData.getConfigurationSection("players." + uuidString).getBoolean("rangedspy", false);
                 boolean messageToggle = playerData.getConfigurationSection("players." + uuidString).getBoolean("messagetoggle", true);
-                MineverseChatPlayer mcp = new MineverseChatPlayer(uuid, name, ignores, host, party, filter, notifications, jsonFormat, spy, commandSpy, rangedSpy, messageToggle);
+                MineverseChatPlayer mcp = new MineverseChatPlayer(uuid, name, ignores, filter, notifications, jsonFormat, spy, commandSpy, rangedSpy, messageToggle);
                 mcp.setModified(true);
                 MineverseChatAPI.addMineverseChatPlayerToMap(mcp);
                 MineverseChatAPI.addNameToMap(mcp);
@@ -129,7 +129,7 @@ public class PlayerData {
             boolean commandSpy = playerDataFileYamlConfiguration.getBoolean("commandspy", false);
             boolean rangedSpy = playerDataFileYamlConfiguration.getBoolean("rangedspy", false);
             boolean messageToggle = playerDataFileYamlConfiguration.getBoolean("messagetoggle", true);
-            mcp = new MineverseChatPlayer(uuid, name, ignores, host, party, filter, notifications, jsonFormat, spy, commandSpy, rangedSpy, messageToggle);
+            mcp = new MineverseChatPlayer(uuid, name, ignores, filter, notifications, jsonFormat, spy, commandSpy, rangedSpy, messageToggle);
         } catch (Exception e) {
             Bukkit.getConsoleSender().sendMessage(Format.FormatStringAll("&8[&eVentureChat&8]&c - Error Loading Data File: " + playerDataFile.getName()));
             Bukkit.getConsoleSender().sendMessage(Format.FormatStringAll("&8[&eVentureChat&8]&c - File will be skipped and deleted." ));
@@ -160,8 +160,6 @@ public class PlayerData {
                 ignores += s.toString() + ",";
             }
             playerDataFileYamlConfiguration.set("ignores", ignores);
-            playerDataFileYamlConfiguration.set("host", mcp.isHost());
-            playerDataFileYamlConfiguration.set("party", mcp.hasParty() ? mcp.getParty().toString() : "");
             playerDataFileYamlConfiguration.set("filter", mcp.hasFilter());
             playerDataFileYamlConfiguration.set("notifications", mcp.hasNotifications());
             playerDataFileYamlConfiguration.set("spy", mcp.isSpy());

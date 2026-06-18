@@ -2,6 +2,7 @@ BlockingMessage: '&6{player} is currently blocking messages.'
 ClearChatSender: '&aCleared the server chat.'
 ClearChatServer: '&aYour chat has been cleared.'
 ChannelCooldown: '&c{cooldown} of cooldown remaining.'
+NoPermission: '&cYou do not have permission for this command!'
 ChannelNoSpeakPermissions: '&cYou do not have permission to speak in this channel.'
 AliasNoPermissions: '&cYou do not have permission for this alias.'
 AliasInvalidArgumentsSingular: '&cInvalid arguments for this alias, enter at least 1 argument.'
@@ -34,7 +35,34 @@ MessageToggledPM: '&cYou have private messages disabled'
 NoPlayerToReplyTo: '&cYou do not have anyone to reply to.'
 NotificationsOff: '&aYou are no longer receiving notifications.'
 NotificationsOn: '&aYou are now receiving notifications.'
-PlayerOffline: '&cPlayer: &6{args} &cis not online.'
+
+
+GroupCreate: "&6You created a new group"
+GroupAlreadyIn: '&cYou already a member of group &6{player}&c.'
+GroupDisbanded: '&6Your group has been disbanded.'
+GroupDisbandedMembers: '&6{player} &chas disbanded the group.'
+GroupNotOwner: '&cYou need to be owner of group to do this.'
+GroupInviteYourself: '&cYou cant invite yourself to the group'
+GroupInviteAlreadyExists: '&cYou already invited &6{player} &cto your group'
+GroupInviteAlreadyMember: '&6{player} &calready your group member.'
+GroupInviteAlreadyMemberAnother: '&6{player} &calready a member of another group.'
+GroupInviteSuccess: '&6You invited {player} to your group.'
+GroupInvitedByPlayer: '&6{player} invited you to the group. &a/chatgroup accept {player} &6to join.'
+GroupNoInviteFromPlayer: '&cYou dont have invitation from &6{player}&6.'
+GroupNewMember: '&6{player} has joined the group.'
+GroupNotMember: '&cYou are not a group member.'
+GroupPlayerLeft: '&6{player} has left the group.'
+GroupKickYourself: '&cYou cant kick yourself from the group.'
+GroupKickNotMember: '&cPlayer &6{player} &cis not yours group member.'
+GroupInformation: |
+  &6Group &a{owner}
+  &6Members: {members}
+GroupPlayerNotAGroupMember: '&6{player} &cis not in a group'
+
+
+
+PlayerNotExist: '&cPlayer &6{player} &cis not exist'
+PlayerOffline: '&cPlayer &6{player} &cis not online.'
 RangedSpyOff: '&6You are no longer spying on ranged channels.'
 RangedSpyOn: '&6You are now spying on ranged channels.'
 SpamWarning: '&cSlow down your chat! You''re halfway to being muted for spam!'

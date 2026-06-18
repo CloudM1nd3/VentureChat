@@ -38,11 +38,11 @@ public class Message extends Command {
 
 		MineverseChatPlayer player = MineverseChatAPI.getOnlineMineverseChatPlayer(args[0]);
 		if (player == null) {
-			mcp.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{args}", args[0]));
+			mcp.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{player}", args[0]));
 			return true;
 		}
 		if (!mcp.getPlayer().canSee(player.getPlayer())) {
-			mcp.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{args}", args[0]));
+			mcp.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{player}", args[0]));
 			return true;
 		}
 		if (!mcp.getMessageToggle()){
