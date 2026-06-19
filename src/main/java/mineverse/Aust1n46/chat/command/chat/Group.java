@@ -3,6 +3,7 @@ package mineverse.Aust1n46.chat.command.chat;
 import mineverse.Aust1n46.chat.api.ChatGroup;
 import mineverse.Aust1n46.chat.api.ChatGroupAPI;
 import mineverse.Aust1n46.chat.localization.LocalizedMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,8 +13,16 @@ import mineverse.Aust1n46.chat.MineverseChat;
 import mineverse.Aust1n46.chat.api.MineverseChatAPI;
 import mineverse.Aust1n46.chat.api.MineverseChatPlayer;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Group extends Command {
     private MineverseChat plugin = MineverseChat.getInstance();
+
+    private static final Set<String> FIRST_ARGUMENT = Set.of(
+            "create", "invite", "accept", "leave", "kick", "help", "info");
+
+    private static final Set<String> SECOND_ARGUMENT = Set.of("invite", "accept", "kick", "info");
 
     public Group() {
         super("chatgroup");
@@ -32,7 +41,7 @@ public class Group extends Command {
             return true;
         }
         try {
-            switch (args[0]) {
+            switch (args[0].toLowerCase()) {
                 case "create": {
                     if (!mcp.getPlayer().hasPermission("venturechat.group.create")) {
                         mcp.getPlayer().sendMessage(LocalizedMessage.NO_PERMISSION.toString());
@@ -155,7 +164,7 @@ public class Group extends Command {
 
                     if (mcpChatGroup.isOwner(mcp)) {
                         mcpChatGroup.sendDisbandMessageToAllMembers();
-                        ChatGroupAPI.disbandGroup(mcp.getUUID());
+                        ChatGroupAPI.disbandGroup(mcp.getName());
                         return true;
                     }
 
@@ -254,6 +263,9 @@ public class Group extends Command {
 
                     return true;
                 }
+                case "chat":{
+                    return true;
+                }
                 case "help": {
                     if (!mcp.getPlayer().hasPermission("venturechat.group.help")) {
                         mcp.getPlayer().sendMessage(LocalizedMessage.NO_PERMISSION.toString());
@@ -261,12 +273,42 @@ public class Group extends Command {
                     }
 
                     mcp.getPlayer().sendMessage(ChatColor.GREEN + "Future help message");
-                    break;
+                    return true;
                 }
             }
         } catch (Exception e) {
             mcp.getPlayer().sendMessage(ChatColor.RED + "Invalid arguments, /chatgroup help");
         }
         return true;
+    }
+
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String label, String[] args) {
+        switch(args.length){
+            case 1: {
+                return FIRST_ARGUMENT.stream()
+                        .filter(cmd -> startsWithIgnoreCase(cmd, args[0]))
+                        .collect(Collectors.toList());
+            }
+
+            case 2: {
+                if (!SECOND_ARGUMENT.contains(args[0].toLowerCase())) {
+                    return Collections.emptyList();
+                }
+
+                return MineverseChatAPI.getOnlineMineverseChatPlayers().stream()
+                        .map(MineverseChatPlayer::getName)
+                        .filter(name -> startsWithIgnoreCase(name, args[1]))
+                        .toList();
+            }
+
+            default: return Collections.emptyList();
+        }
+    }
+
+
+    private boolean startsWithIgnoreCase(String value, String prefix) {
+        return value.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 }
